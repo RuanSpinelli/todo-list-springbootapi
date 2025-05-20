@@ -21,7 +21,7 @@ public class Note {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="usuario_id", nullable = false)
-    private Usuario onwer;
+    private Usuario owner;
 
     @OneToMany(mappedBy = "note", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Task> tasks = new ArrayList<>();
@@ -29,9 +29,9 @@ public class Note {
     public Note() {
     }
 
-    public Note(String title, Usuario onwer) {
+    public Note(String title, Usuario owner) {
         this.title = title;
-        this.onwer = onwer;
+        this.owner = owner;
     }
 
     public Long getId() {
@@ -58,12 +58,12 @@ public class Note {
         this.description = description;
     }
 
-    public Usuario getOnwer() {
-        return onwer;
+    public Usuario getOwner() {
+        return owner;
     }
 
-    public void setOnwer(Usuario onwer) {
-        this.onwer = onwer;
+    public void setOwner(Usuario owner) {
+        this.owner = owner;
     }
 
     public List<Task> getTasks() {
