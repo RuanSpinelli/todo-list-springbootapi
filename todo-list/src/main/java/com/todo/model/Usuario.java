@@ -18,6 +18,10 @@ public class Usuario {
     @Column(nullable = false)
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+    
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Note> notes = new ArrayList<>();
 
@@ -25,9 +29,10 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(String name, String password) {
+    public Usuario(String name, String password, Role role) {
         this.name = name;
         this.password = password;
+        this.role = role;
     }
 
     public Long getId() {
@@ -54,11 +59,29 @@ public class Usuario {
         this.password = password;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     public List<Note> getNotes() {
         return notes;
     }
 
     public void setNotes(List<Note> notes) {
         this.notes = notes;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", role=" + role +
+                ", notes=" + notes +
+                '}';
     }
 }
