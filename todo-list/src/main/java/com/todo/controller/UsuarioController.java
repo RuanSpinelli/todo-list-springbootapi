@@ -3,6 +3,8 @@ package com.todo.controller;
 import com.todo.model.Usuario;
 import com.todo.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,11 +31,21 @@ public class UsuarioController {
     }
 
 
-
-    // Mostra todos os usuários cadastrados
+/*
+// Mostra todos os usuários cadastrados
     @GetMapping("/listar")
     public String listarUsuarios(Model model) {
         model.addAttribute("usuarios", usuarioService.listarTodos());
         return "usuarios/lista"; // Vai procurar templates/usuarios/lista.html
     }
+ */
+    @GetMapping("/listar")
+    public String listarUsuarios(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+        model.addAttribute("usuarios", usuarioService.listarTodos());
+        System.out.println(userDetails.getUsername());
+        model.addAttribute("usuarioLogado", userDetails.getUsername()); // Passa o nome do usuário autenticado
+        return "usuarios/lista";
+    }
+
+
 }

@@ -63,6 +63,11 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<!--
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
+		</dependency>-->
 		<!--Postgre-->
 		<dependency>
 			<groupId>org.postgresql</groupId>

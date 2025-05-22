@@ -5,7 +5,7 @@
                 <li><a th:href="@{/}">Início</a></li>
                 <li><a th:href="@{/usuarios/listar}">Usuários</a></li>
                 <li><a th:href="@{/usuarios/cadastrar}">Cadastrar Usuário</a></li>
-                <li>Bem vindo(a), <span th:text="${#authentication.name}">Usuário</span>.</li>
+                <li>Bem vindo(a), <span th:text="${usuarioLogado}"></span>.</li>
                 <li>
                     <form th:action="@{/logout}" method="post" style="display:inline;">
                         <button type="submit">Sair</button>
