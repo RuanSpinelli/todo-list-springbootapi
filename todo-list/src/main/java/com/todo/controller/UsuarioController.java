@@ -18,15 +18,17 @@ public class UsuarioController {
     @GetMapping("/cadastrar")
     public String mostrarFormulario(Model model) {
         model.addAttribute("usuario", new Usuario());
-        return "usuarios/formulario"; // Vai procurar templates/usuarios/formulario.html
+        return "usuarios/cadastro"; // Vai procurar templates/usuarios/cadastro.html
     }
 
     // Recebe os dados do formulário e cadastra o usuário
     @PostMapping("/cadastrar")
     public String cadastrarUsuario(@ModelAttribute Usuario usuario) {
         usuarioService.cadastrar(usuario.getName(), usuario.getPassword());
-        return "redirect:/usuarios/listar";
+        return "redirect:/usuarios/cadastrar";
     }
+
+
 
     // Mostra todos os usuários cadastrados
     @GetMapping("/listar")
