@@ -3,6 +3,7 @@ package com.todo.controller;
 import com.todo.model.Usuario;
 import com.todo.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -39,6 +40,8 @@ public class UsuarioController {
         return "usuarios/lista"; // Vai procurar templates/usuarios/lista.html
     }
  */
+
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/listar")
     public String listarUsuarios(Model model, @AuthenticationPrincipal UserDetails userDetails) {
         model.addAttribute("usuarios", usuarioService.listarTodos());
