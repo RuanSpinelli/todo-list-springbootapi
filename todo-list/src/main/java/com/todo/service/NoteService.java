@@ -20,7 +20,7 @@ public class NoteService {
     }
 
     // Listar todas as anotações
-    public List<Note> ListarTodas() {
+    public List<Note> listarTodas() {
         
         return noteRepository.findAll();
     }
