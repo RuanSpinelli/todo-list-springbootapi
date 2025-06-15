@@ -21,16 +21,11 @@ public class SecurityConfig {
     @Autowired
     private UsuarioService usuarioService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+
 
     // Serve para configurar a autenticação
     @Autowired
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        /*
-    "Hey Spring, quando alguém tentar logar, usa o meu UsuarioService pra buscar o usuário no banco.
-     E compara a senha usando BCrypt"
-     */
+    public void configure(AuthenticationManagerBuilder auth, PasswordEncoder passwordEncoder) throws Exception {
         auth.userDetailsService(usuarioService)
                 .passwordEncoder(passwordEncoder);
     }
@@ -96,10 +91,12 @@ public class SecurityConfig {
     }
 
 
+
+    /*
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
+     */
 
 }
