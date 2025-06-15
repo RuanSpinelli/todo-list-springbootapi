@@ -4,6 +4,7 @@ import com.todo.model.Note;
 import com.todo.model.Usuario;
 import com.todo.repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -33,6 +34,14 @@ public class NoteService {
 
     // Salvar as anotações
     public Note salvar(Note note) {
+        return noteRepository.save(note);
+    }
+
+    // Atualizar a anotação
+    public Note atualizar(Long id, String novoTitulo, String novaDescricao) {
+        Note note = buscarPorId(id);
+        note.setTitle(novoTitulo);
+        note.setDescription(novaDescricao);
         return noteRepository.save(note);
     }
 
