@@ -20,6 +20,11 @@ public class NoteService {
         return noteRepository.findByOwner(usuario);
     }
 
+    // Puxar todas as notas com base no usuário
+    public List<Note> findAllByUsuario(Usuario usuario) {
+        return noteRepository.findAllByUsuario(usuario);
+    }
+
     // Listar todas as anotações
     public List<Note> listarTodas() {
         
@@ -49,7 +54,6 @@ public class NoteService {
     public void deletar(Long id){
         noteRepository.deleteById(id);
     }
-
 
 
 }

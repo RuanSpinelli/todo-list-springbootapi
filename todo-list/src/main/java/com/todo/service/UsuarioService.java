@@ -25,6 +25,14 @@ public class UsuarioService implements UserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    public Optional<Usuario> findByName(String name) {
+        return usuarioRepository.findByName(name);
+    }
+
+    public Optional<Usuario> findById(Long id) {
+        return usuarioRepository.findById(id);
+    }
+
     public Usuario cadastrar (String nome, String senha) {
         Usuario usuario = new Usuario();
         usuario.setName(nome);
