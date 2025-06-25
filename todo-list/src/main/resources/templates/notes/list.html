@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Minhas Notas</title>
+</head>
+<body>
+<h1>Notas</h1>
+<a th:href="@{/notas/nova}">Nova Nota</a>
+<ul>
+  <li th:each="note : ${notes}">
+    <strong th:text="${note.title}">Título</strong><br>
+    <span th:text="${note.description}">Descrição</span><br>
+    <a th:href="@{/tarefas/nota/{id}(id=${note.id})}">Ver Tarefas</a>
+  </li>
+</ul>
+</body>
+</html>

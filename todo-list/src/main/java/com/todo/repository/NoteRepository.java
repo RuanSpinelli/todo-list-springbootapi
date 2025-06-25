@@ -10,6 +10,6 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
 
     List<Note> findByOwner(Usuario usuario);
 
-    List<Note> findAllByUsuario(Usuario usuario);
+    List<Note> findAllByOwner(Usuario usuario);
     
 }

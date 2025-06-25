@@ -22,7 +22,8 @@ public class NoteService {
 
     // Puxar todas as notas com base no usuário
     public List<Note> findAllByUsuario(Usuario usuario) {
-        return noteRepository.findAllByUsuario(usuario);
+
+        return noteRepository.findAllByOwner(usuario);
     }
 
     // Listar todas as anotações
