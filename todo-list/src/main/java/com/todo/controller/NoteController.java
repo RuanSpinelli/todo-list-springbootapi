@@ -38,7 +38,7 @@ public class NoteController {
     @GetMapping("/nova")
     public String exibirFormularioNovaNot(Model model) {
         model.addAttribute("note", new Note());
-        return "#"; // leva pro formulário de nova nota
+        return "notes/form"; // leva pro formulário de nova nota
     }
 
 
@@ -52,24 +52,17 @@ public class NoteController {
         return "redirect:/notas"; // para voltar à lista após salvar
     }
 
-    // Busca a nota e mostra para o usuário poder mexer
     @GetMapping("/editar/{id}")
     public String editarNota(@PathVariable Long id, Model model, @AuthenticationPrincipal UserDetails userDetails) {
-        Note note = notaService.buscarPorId(id);
-
-        // Verificar se a nota pertence ao usuário logado
         String nome = userDetails.getUsername();
         Usuario usuario = usuarioService.findByName(nome)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        if (!note.getOwner().getId().equals(usuario.getId())) {
-            throw new RuntimeException("Você não tem permissão para editar essa nota");
-        }
+        Note note = notaService.buscarNotaDoUsuario(id, usuario); // Verifica dono aqui
 
         model.addAttribute("note", note);
         return "notes/form";
     }
-
     // Recebe os dados modificados e grava no banco
     @PostMapping("/atualizar/{id}")
     public String atualizarNota(@PathVariable Long id, @ModelAttribute Note note, @AuthenticationPrincipal UserDetails userDetails) {
@@ -77,20 +70,16 @@ public class NoteController {
         Usuario usuario = usuarioService.findByName(nome)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        Note notaExistente = notaService.buscarPorId(id);
+        Note notaExistente = notaService.buscarNotaDoUsuario(id, usuario); // Verifica dono aqui também
 
-        if (!notaExistente.getOwner().getId().equals(usuario.getId())) {
-            throw new RuntimeException("Você não tem permissão para atualizar essa nota");
-        }
-
-        // Atualiza título e descrição
+        // Atualiza os campos
         notaExistente.setTitle(note.getTitle());
         notaExistente.setDescription(note.getDescription());
 
         notaService.salvar(notaExistente);
-
         return "redirect:/notas";
     }
+
 
     @GetMapping("/excluir/{id}")
     public String excluirNota(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails) {

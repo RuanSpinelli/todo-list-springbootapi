@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nova Nota</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container mt-4">
+    <h1>Nova Nota</h1>
+
+    <form th:action="@{/notas/salvar}" method="post" th:object="${note}">
+        <input type="hidden" th:field="*{id}" />  <!-- Esse campo é essencial -->
+
+        <div class="mb-3">
+            <label for="title" class="form-label">Título</label>
+            <input id="title" class="form-control" type="text" th:field="*{title}" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Descrição</label>
+            <textarea id="description" class="form-control" th:field="*{description}"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Salvar</button>
+        <a th:href="@{/notas}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>

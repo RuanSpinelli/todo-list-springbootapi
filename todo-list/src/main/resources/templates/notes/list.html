@@ -11,7 +11,10 @@
   <li th:each="note : ${notes}">
     <strong th:text="${note.title}">Título</strong><br>
     <span th:text="${note.description}">Descrição</span><br>
-    <a th:href="@{/tarefas/nota/{id}(id=${note.id})}">Ver Tarefas</a>
+    <a th:href="@{/tarefas/nota/{id}(id=${note.id})}">Ver Tarefas</a> |
+    <a th:href="@{/notas/editar/{id}(id=${note.id})}">Editar</a> |
+    <a th:href="@{/notas/excluir/{id}(id=${note.id})}"
+       onclick="return confirm('Tem certeza que deseja excluir esta nota?');">Excluir</a>
   </li>
 </ul>
 </body>

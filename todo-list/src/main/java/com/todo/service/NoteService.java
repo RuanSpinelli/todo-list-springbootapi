@@ -32,6 +32,16 @@ public class NoteService {
         return noteRepository.findAll();
     }
 
+    // Serve para checar se a nota pertence ao usuário que está tentando manipular
+    public Note buscarNotaDoUsuario(Long notaId, Usuario usuario) {
+        Note note = buscarPorId(notaId);
+        if (!note.getOwner().getId().equals(usuario.getId())) {
+            throw new RuntimeException("Você não tem permissão para acessar esta nota.");
+        }
+        return note;
+    }
+
+
     // Buscar por Id
     public Note buscarPorId(Long id) {
         return noteRepository.findById(id)
