@@ -3,6 +3,8 @@ package com.todo.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "tasks")
 public class Task {
@@ -15,6 +17,9 @@ public class Task {
     private String description;
 
     private boolean status = false;
+
+    @Column(name = "deadline")
+    private LocalDateTime deadline;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn( name = "note_id" , nullable = false)
@@ -58,5 +63,10 @@ public class Task {
 
     public void setNote(Note note) {
         this.note = note;
+    }
+
+    public LocalDateTime getDeadline() {return deadline;}
+
+    public void setDeadline(LocalDateTime deadline) {this.deadline = deadline;
     }
 }

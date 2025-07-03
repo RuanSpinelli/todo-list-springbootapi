@@ -6,6 +6,7 @@ import com.todo.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -13,6 +14,8 @@ public class TaskService {
 
     @Autowired
     private TaskRepository taskRepository;
+
+
 
 
 
@@ -33,10 +36,14 @@ public class TaskService {
                 .orElseThrow(() -> new RuntimeException("Tarefa não encontrada"));
     }
 
-    // Salvar tarefa - obrigatoriamente vinculada a uma anotação
+    /* Salvar tarefa - obrigatoriamente vinculada a uma anotação
+    *  As tarefas que possuem data limite não podem estar marcadas com datas no passado
+    * */
     public Task salvar(Task task) {
         if (task.getNote() == null) {
             throw new IllegalArgumentException("Tarefa deve estar vinculada a uma anotação");
+        } else if (task.getDeadline() != null && task.getDeadline().isBefore(LocalDateTime.now())) {
+            throw new IllegalArgumentException("A data limite não pode estar no passado.");
         }
         return taskRepository.save(task);
     }
@@ -53,4 +60,10 @@ public class TaskService {
     public void deletar(Long id) {
         taskRepository.deleteById(id);
     }
+
+    // Busca todas as tarefas
+    public List<Task> listarAtrasadas() {
+        return taskRepository.findByDeadlineBefore(LocalDateTime.now());
+    }
+
 }
