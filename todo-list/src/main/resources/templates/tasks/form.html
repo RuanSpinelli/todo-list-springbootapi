@@ -14,9 +14,15 @@
     <input type="hidden" th:field="*{note.id}" />
 
     <div class="mb-3">
-      <label for="description" class="form-label">Descrição</label>
-      <input id="description" class="form-control" type="text" th:field="*{description}" required>
+      <label for="title" class="form-label">Título</label>
+      <input id="title" class="form-control" type="text" th:field="*{title}" required />
     </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Descrição</label>
+      <textarea id="description" class="form-control" th:field="*{description}"></textarea>
+    </div>
+
 
     <div class="mb-3">
       <label for="status" class="form-label">Status</label>

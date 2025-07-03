@@ -6,6 +6,10 @@
 </head>
 <body>
 <h1>Notas</h1>
+
+<!-- Link para a página welcome -->
+<p><a th:href="@{/index}">Página Inicial (Welcome)</a></p>
+
 <a th:href="@{/notas/nova}">Nova Nota</a>
 <ul>
   <li th:each="note : ${notes}">

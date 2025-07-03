@@ -42,15 +42,21 @@ public class TaskService {
     public Task salvar(Task task) {
         if (task.getNote() == null) {
             throw new IllegalArgumentException("Tarefa deve estar vinculada a uma anotação");
-        } else if (task.getDeadline() != null && task.getDeadline().isBefore(LocalDateTime.now())) {
+        }
+        if (task.getTitle() == null || task.getTitle().isBlank()) {
+            throw new IllegalArgumentException("Título da tarefa é obrigatório");
+        }
+        if (task.getDeadline() != null && task.getDeadline().isBefore(LocalDateTime.now())) {
             throw new IllegalArgumentException("A data limite não pode estar no passado.");
         }
         return taskRepository.save(task);
     }
 
+
     // Atualizar tarefa (descrição e status)
-    public Task atualizar(Long id, String novaDescricao, boolean novoStatus) {
+    public Task atualizar(Long id, String novoTitulo, String novaDescricao, boolean novoStatus) {
         Task task = buscarPorId(id);
+        task.setTitle(novoTitulo);
         task.setDescription(novaDescricao);
         task.setStatus(novoStatus);
         return taskRepository.save(task);
