@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tarefas da Nota</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container mt-4">
+    <h1 th:text="'Tarefas da nota: ' + ${note.title}">Tarefas</h1>
+
+    <a th:href="@{/tarefas/nova/{id}(id=${note.id})}" class="btn btn-primary mb-3">Nova Tarefa</a>
+    <a th:href="@{/notas}" class="btn btn-secondary mb-3">Voltar</a>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Descrição</th>
+            <th>Status</th>
+            <th>Data Limite</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="task : ${tasks}"
+            th:classappend="${task.deadline != null and task.deadline.isBefore(T(java.time.LocalDateTime).now()) and !task.status} ? 'table-danger'">
+            <td th:text="${task.description}">Descrição</td>
+            <td>
+                <span th:text="${task.status} ? 'Concluída' : 'Pendente'"></span>
+            </td>
+            <td th:text="${task.deadline != null} ? ${#temporals.format(task.deadline, 'dd/MM/yyyy HH:mm')} : '-'">Data</td>
+            <td>
+                <a th:href="@{/tarefas/editar/{id}(id=${task.id})}" class="btn btn-sm btn-warning">Editar</a>
+                <a th:href="@{/tarefas/excluir/{id}(id=${task.id})}" class="btn btn-sm btn-danger"
+                   onclick="return confirm('Tem certeza que deseja excluir esta tarefa?')">Excluir</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

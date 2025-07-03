@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Nova Tarefa</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container mt-4">
+  <h1 th:text="${task.id != null} ? 'Editar Tarefa' : 'Nova Tarefa'">Formulário</h1>
+
+  <form th:action="@{/tarefas/salvar}" method="post" th:object="${task}">
+    <input type="hidden" th:field="*{id}" />
+    <input type="hidden" th:field="*{note.id}" />
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Descrição</label>
+      <input id="description" class="form-control" type="text" th:field="*{description}" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="status" class="form-label">Status</label>
+      <select id="status" class="form-select" th:field="*{status}">
+        <option th:value="false">Pendente</option>
+        <option th:value="true">Concluída</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="deadline" class="form-label">Data Limite</label>
+      <input id="deadline" class="form-control" type="datetime-local" th:field="*{deadline}">
+    </div>
+
+    <button type="submit" class="btn btn-success">Salvar</button>
+    <a th:href="@{/tarefas/nota/{id}(id=${task.note.id})}" class="btn btn-secondary">Cancelar</a>
+  </form>
+</div>
+</body>
+</html>
