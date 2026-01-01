@@ -37,7 +37,7 @@ Aplicação web de gerenciamento de tarefas desenvolvida com **Spring Boot MVC**
 
 ## 🛠 Tecnologias Utilizadas
 
-- Java 17 (compatível com versões superiores)
+- Java 21
 - Spring Boot
 - Spring MVC
 - Spring Security
